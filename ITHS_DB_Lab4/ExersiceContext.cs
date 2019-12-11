@@ -14,6 +14,8 @@ namespace ITHS_DB_Lab4
         public DbSet<Swiming> Swiming { get; set; }
         public DbSet<Gear> Gear { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
+        public DbSet<SessionExercise> SessionExercise { get; set; }
+        public DbSet<SessionGear> SessionGear { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,6 +40,9 @@ namespace ITHS_DB_Lab4
 
             modelBuilder.Entity<Gear>()
                 .Property(e => e.Name).IsRequired();
+
+            modelBuilder.Entity<SessionGear>()
+                .HasKey(s => new { s.SessionId, s.GearId });
                 
         }
 

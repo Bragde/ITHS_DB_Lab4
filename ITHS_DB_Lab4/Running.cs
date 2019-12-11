@@ -6,15 +6,10 @@ namespace ITHS_DB_Lab4
 {
     class Running : Session
     {
-        public Running()
-        {
-            this.Exercises = new List<Exercise>();
-        }
-        public Running(List<Exercise> exercises)
-        {
-            this.Exercises = exercises;
-        }
-        public override List<Exercise> Exercises { get; set; }
-        public override List<Gear> Gear { get; set; }
+        public Running(string name, string description, float time, int personId) 
+            : base(name, description, time, personId){}
+
+        public override List<SessionExercise> SessionExercise { get; set; }
+        public override List<SessionGear> SessionGear { get; set; }
     }
 }

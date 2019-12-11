@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITHS_DB_Lab4.Migrations
 {
     [DbContext(typeof(ExersiceContext))]
-    [Migration("20191210225019_init")]
+    [Migration("20191211022535_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,15 +30,7 @@ namespace ITHS_DB_Lab4.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int?>("PainLevel");
-
-                    b.Property<int?>("Repetitions");
-
-                    b.Property<int>("SessionId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
 
                     b.ToTable("Exercise");
                 });
@@ -52,11 +44,7 @@ namespace ITHS_DB_Lab4.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<int>("SessionId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SessionId");
 
                     b.ToTable("Gear");
                 });
@@ -103,6 +91,42 @@ namespace ITHS_DB_Lab4.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Session");
                 });
 
+            modelBuilder.Entity("ITHS_DB_Lab4.SessionExercise", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ExerciseId");
+
+                    b.Property<int?>("PainLevel");
+
+                    b.Property<int?>("Repetitions");
+
+                    b.Property<int>("SessionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("SessionExercise");
+                });
+
+            modelBuilder.Entity("ITHS_DB_Lab4.SessionGear", b =>
+                {
+                    b.Property<int>("SessionId");
+
+                    b.Property<int>("GearId");
+
+                    b.HasKey("SessionId", "GearId");
+
+                    b.HasIndex("GearId");
+
+                    b.ToTable("SessionGear");
+                });
+
             modelBuilder.Entity("ITHS_DB_Lab4.Cycling", b =>
                 {
                     b.HasBaseType("ITHS_DB_Lab4.Session");
@@ -124,27 +148,37 @@ namespace ITHS_DB_Lab4.Migrations
                     b.HasDiscriminator().HasValue("Swiming");
                 });
 
-            modelBuilder.Entity("ITHS_DB_Lab4.Exercise", b =>
-                {
-                    b.HasOne("ITHS_DB_Lab4.Session", "Session")
-                        .WithMany("Exercises")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ITHS_DB_Lab4.Gear", b =>
-                {
-                    b.HasOne("ITHS_DB_Lab4.Session", "Session")
-                        .WithMany("Gear")
-                        .HasForeignKey("SessionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("ITHS_DB_Lab4.Session", b =>
                 {
                     b.HasOne("ITHS_DB_Lab4.Person", "Person")
                         .WithMany("Sessions")
                         .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ITHS_DB_Lab4.SessionExercise", b =>
+                {
+                    b.HasOne("ITHS_DB_Lab4.Exercise", "Exercise")
+                        .WithMany("SessionExercise")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ITHS_DB_Lab4.Session", "Session")
+                        .WithMany("SessionExercise")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ITHS_DB_Lab4.SessionGear", b =>
+                {
+                    b.HasOne("ITHS_DB_Lab4.Gear", "Gear")
+                        .WithMany("SessionGear")
+                        .HasForeignKey("GearId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ITHS_DB_Lab4.Session", "Session")
+                        .WithMany("SessionGear")
+                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

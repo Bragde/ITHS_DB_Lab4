@@ -8,6 +8,32 @@ namespace ITHS_DB_Lab4.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Exercise",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exercise", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Gear",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gear", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Person",
                 columns: table => new
                 {
@@ -44,21 +70,27 @@ namespace ITHS_DB_Lab4.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exercise",
+                name: "SessionExercise",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false),
                     Repetitions = table.Column<int>(nullable: true),
                     PainLevel = table.Column<int>(nullable: true),
-                    SessionId = table.Column<int>(nullable: false)
+                    SessionId = table.Column<int>(nullable: false),
+                    ExerciseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exercise", x => x.Id);
+                    table.PrimaryKey("PK_SessionExercise", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Exercise_Session_SessionId",
+                        name: "FK_SessionExercise_Exercise_ExerciseId",
+                        column: x => x.ExerciseId,
+                        principalTable: "Exercise",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SessionExercise_Session_SessionId",
                         column: x => x.SessionId,
                         principalTable: "Session",
                         principalColumn: "Id",
@@ -66,19 +98,23 @@ namespace ITHS_DB_Lab4.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Gear",
+                name: "SessionGear",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: false),
-                    SessionId = table.Column<int>(nullable: false)
+                    SessionId = table.Column<int>(nullable: false),
+                    GearId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Gear", x => x.Id);
+                    table.PrimaryKey("PK_SessionGear", x => new { x.SessionId, x.GearId });
                     table.ForeignKey(
-                        name: "FK_Gear_Session_SessionId",
+                        name: "FK_SessionGear_Gear_GearId",
+                        column: x => x.GearId,
+                        principalTable: "Gear",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SessionGear_Session_SessionId",
                         column: x => x.SessionId,
                         principalTable: "Session",
                         principalColumn: "Id",
@@ -86,23 +122,34 @@ namespace ITHS_DB_Lab4.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Exercise_SessionId",
-                table: "Exercise",
-                column: "SessionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Gear_SessionId",
-                table: "Gear",
-                column: "SessionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Session_PersonId",
                 table: "Session",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SessionExercise_ExerciseId",
+                table: "SessionExercise",
+                column: "ExerciseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SessionExercise_SessionId",
+                table: "SessionExercise",
+                column: "SessionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SessionGear_GearId",
+                table: "SessionGear",
+                column: "GearId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SessionExercise");
+
+            migrationBuilder.DropTable(
+                name: "SessionGear");
+
             migrationBuilder.DropTable(
                 name: "Exercise");
 
