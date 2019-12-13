@@ -25,8 +25,13 @@ namespace ITHS_DB_Lab4
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>()
-                .Property(p => p.Name).IsRequired();
+            modelBuilder.Entity<Person>(e =>
+            { 
+                e.Property(en => en.FirstName).IsRequired();
+                e.Property(en => en.FirstName).HasMaxLength(255);
+                e.Property(en => en.LastName).IsRequired();
+                e.Property(en => en.LastName).HasMaxLength(255);
+            });
 
             modelBuilder.Entity<Session>(e =>
             {
@@ -43,7 +48,11 @@ namespace ITHS_DB_Lab4
 
             modelBuilder.Entity<SessionGear>()
                 .HasKey(s => new { s.SessionId, s.GearId });
-                
+
+            modelBuilder.Entity<SessionExercise>()
+                .Property(e => e.PainLevel)
+                .HasDefaultValue(5);
+
         }
 
     }

@@ -8,9 +8,11 @@ namespace ITHS_DB_Lab4
     {
         public static void AddDevSeed()
         {
+            /* Commented out becourse it does not compile after changed data model
+            
             using (var db = new ExersiceContext())
             {
-                // ADD PERSONS
+                // ADD PERSONS            
                 var annaAndersson = new Person("Anna Andersson");
                 var bennyBengtsson = new Person("Benny Bengtsson");
                 var carinCarlsson = new Person("Carin Carlsson");
@@ -93,6 +95,8 @@ namespace ITHS_DB_Lab4
 
                 db.SaveChanges();
             }
+
+            */
         }
     }
 }
