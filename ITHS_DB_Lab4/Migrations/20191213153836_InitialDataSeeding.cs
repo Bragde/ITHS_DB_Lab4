@@ -6,8 +6,13 @@ namespace ITHS_DB_Lab4.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            /* Kör denna migrering efter init migrering för att fylla db med data.
+             * Koden är bortkommenterad då den inte kompilerar längre efter att
+             * modellen ändrades i uppgift 3.
+             
             using (var db = new ExersiceContext())
             {
+                
                 // ADD PERSONS
                 var annaAndersson = new Person("Anna Andersson");
                 var bennyBengtsson = new Person("Benny Bengtsson");
@@ -91,6 +96,7 @@ namespace ITHS_DB_Lab4.Migrations
 
                 db.SaveChanges();
             }
+            */
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -27,7 +27,10 @@ namespace ITHS_DB_Lab4
         {
             modelBuilder.Entity<Person>(e =>
             { 
-                e.Property(en => en.Name).IsRequired();
+                e.Property(en => en.FirstName).IsRequired();
+                e.Property(en => en.FirstName).HasMaxLength(255);
+                e.Property(en => en.LastName).IsRequired();
+                e.Property(en => en.LastName).HasMaxLength(255);
             });
 
             modelBuilder.Entity<Session>(e =>
@@ -49,31 +52,6 @@ namespace ITHS_DB_Lab4
             modelBuilder.Entity<SessionExercise>()
                 .Property(e => e.PainLevel)
                 .HasDefaultValue(5);
-
-            /*
-            // SEED INITAIL DATA
-            modelBuilder.Entity<Person>().HasData(
-                new Person("Anna Andersson"),
-                new Person("Benny Bengtsson"),
-                new Person("Carin Carlsson"));
-
-            modelBuilder.Entity<Exercise>().HasData(
-                new Exercise("Långdistans"),
-                new Exercise("Intervall"),
-                new Exercise("Teräng"),
-                new Exercise("Crawl"),
-                new Exercise("Bröstsim"));
-
-            modelBuilder.Entity<Gear>().HasData(
-                new Gear("Hjälm"),
-                new Gear("Speedos"),
-                new Gear("Goggels"),
-                new Gear("Cyckel"),
-                new Gear("Skor"));
-
-            modelBuilder.Entity<Session>().HasData(
-                new Running("Löppass", "Genom skogen", 2.34f, ))
-                */
         }
 
     }
