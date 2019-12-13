@@ -53,15 +53,8 @@ namespace ITHS_DB_Lab4.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

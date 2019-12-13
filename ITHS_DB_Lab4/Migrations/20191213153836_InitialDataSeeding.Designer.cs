@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITHS_DB_Lab4.Migrations
 {
     [DbContext(typeof(ExersiceContext))]
-    [Migration("20191211184454_Uppgift3")]
-    partial class Uppgift3
+    [Migration("20191213153836_InitialDataSeeding")]
+    partial class InitialDataSeeding
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,15 +55,8 @@ namespace ITHS_DB_Lab4.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
