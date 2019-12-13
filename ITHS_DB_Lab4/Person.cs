@@ -6,17 +6,13 @@ namespace ITHS_DB_Lab4
 {
     class Person
     {
-        public Person(string firstName, string lastName)
+        public Person(string name)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            Name = name;
         }
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-
+        public string Name { get; set; }
         public List<Session> Sessions { get; set; }
     }
 }
