@@ -80,12 +80,12 @@ namespace ITHS_DB_Lab4.Migrations
 
         //        // ADD EXERCISES AND GEAR TO SESSIONS
         //        session_1.SessionExercise.Add(new SessionExercise(session_1.Id, långdistans.Id) 
-        //            { PainLevel = 7 });
+        //            { PainLevel = 8 });
         //        session_1.SessionGear.Add(new SessionGear(session_1.Id, skor.Id));
         //        session_1.SessionGear.Add(new SessionGear(session_1.Id, speedos.Id));
 
         //        session_2.SessionExercise.Add(new SessionExercise(session_2.Id, intervall.Id) 
-        //            { Repetitions = 20, PainLevel = 8 });
+        //            { Repetitions = 20, PainLevel = 7 });
 
         //        session_3.SessionExercise.Add(new SessionExercise(session_3.Id, intervall.Id) 
         //            { Repetitions = 30, PainLevel = 8 });

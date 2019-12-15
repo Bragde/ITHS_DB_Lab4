@@ -70,74 +70,36 @@ namespace ITHS_DB_Lab4
             {
                 Console.WriteLine("VILKEN ÖVNING SOM HAR VARIT JOBBIGAST\n");
 
-                //var join = db.SessionExercise
-                //    .Join(db.Session, se => se.SessionId, s => s.Id, (se, s) => new { se, s })
-                //    .Join(db.Person, ses => ses.s.PersonId, p => p.Id, (ses, p) => new { ses, p })
-                //    .Join(db.Exercise, sesp => sesp.ses.se.ExerciseId, e => e.Id, (sesp, e) => new { sesp, e })
-                //    .OrderByDescending(x => x.)
-                //    .GroupBy(gr => gr.sesp.ses.se.PainLevel)
-                //    .Select(m => new
-                //    {
-                //        FirstName = m.,
-                //        LastName = m.sesp.p.LastName,
-                //        ExerciseName = m.e.Name,
-                //        SessionName = m.sesp.ses.s.Name,
-                //        Time = m.sesp.ses.s.Time,
-                //        PainLevel = m.sesp.ses.se.PainLevel
-                //    })
-                //    //.GroupBy(m => m.PainLevel)
-                //    //.OrderByDescending(m => m.)
-                //    .Take(1)
-                //    .ToList();
-
-                // Query syntax
                 // Join tables
-                var qJoin = from p in db.Person
-                            join s in db.Session on p.Id equals s.PersonId
-                            join se in db.SessionExercise on s.Id equals se.SessionId
+                var qJoin = from se in db.SessionExercise
+                            join s in db.Session on se.SessionId equals s.Id
+                            join p in db.Person on s.PersonId equals p.Id
                             join e in db.Exercise on se.ExerciseId equals e.Id
                             select new
                             {
-                                name = p.FirstName + p.LastName,
-                                exercise = e.Name,
-                                session = s.Name,
-                                pain = se.PainLevel
+                                Name = p.FirstName + p.LastName,
+                                Session = s.Name,
+                                Pain = se.PainLevel,
+                                Exercise = e.Name
                             };
-                // Order
-                var qOrder = from j in qJoin
-                             orderby j.pain descending;
 
-                //var query_2 = from se in db.SessionExercise
-                //              join s in db.Session on se.SessionId equals s.Id
-                //              join p in db.Person on s.PersonId equals p.Id
-                //              join e in db.Exercise on se.ExerciseId equals e.Id
-                //              orderby se.PainLevel descending
-                //              select new
-                //              {
+                // Group, order then take 1
+                var qGroup = (from i in qJoin
+                             group i by i.Pain into gr
+                             orderby gr.Key descending
+                             select gr).Take(1);
 
-                //              }
-                //              group g by se.PainLevel
-                //              select new
-                //              {
-                //                  name = p.FirstName + p.LastName,
-                //                  exercise = e.Name,
-                //                  session = s.Name,
-                //                  pain = se.PainLevel
-                //              };
-                //var query_3 = from s in query_2
-                //              group s by s.pain into g
-                //              select new
-                //              {
-                //                  key = g.Key,
-                //                  val = g.ToList()
-                //              };
-
-                //foreach (var item in query)
-                //{
-                //    Console.WriteLine($"" +
-                //        $"{item}");
-                //}
-                //Console.WriteLine();
+                foreach (var painGroup in qGroup)
+                {
+                    Console.WriteLine($"Pain level: {painGroup.Key}");
+                    foreach (var session in painGroup)
+                    {
+                        Console.WriteLine($"" +
+                            $"{session.Name} " +
+                            $"{session.Session} " +
+                            $"{session.Exercise}");
+                    }
+                }
             }
         }
     }
