@@ -25,5 +25,10 @@ namespace ITHS_DB_Lab4
 
         public abstract List<SessionExercise> SessionExercise { get; set; }
         public abstract List<SessionGear> SessionGear { get; set; }
+
+        public override string ToString()
+        {
+            return $@"{this.Name} {this.Description} {this.Time}";
+        }
     }
 }

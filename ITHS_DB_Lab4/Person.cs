@@ -17,5 +17,10 @@ namespace ITHS_DB_Lab4
         public string LastName { get; set; }
         public string Email { get; set; }
         public List<Session> Sessions { get; set; }
+
+        public override string ToString()
+        {
+            return $@"{this.FirstName} {this.LastName} {this.Email}";
+        }
     }
 }
