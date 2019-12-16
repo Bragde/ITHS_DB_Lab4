@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ITHS_DB_Lab4_ClassLib\ITHS_DB_Lab4_DbModel.csproj" />
+  </ItemGroup>
+
+</Project>

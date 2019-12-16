@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ITHS_DB_Lab4_ClassLib\ITHS_DB_Lab4_DbModel.csproj" />
+    <ProjectReference Include="..\ITHS_DB_Lab4_Database\ITHS_DB_Lab4_Database.sqlproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ITHS_DB_Lab4_ClassLib.DataAccessService;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
-namespace ITHS_DB_Lab4
+namespace ITHS_DB_Lab4_DbModel
 {
     class Program
     {
