@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ITHS_DB_Lab4_DbModel
+namespace ITHS_DB_Lab4_DbModel.Models
 {
     public class Gear
     {

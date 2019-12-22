@@ -4,18 +4,15 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">IT Högskolan</h1>
-    <h1 class="display-4">Utveckling mot databaser - Lab 4</h1>      
-</div>
-
-<div class="card-columns">
-    @foreach (var p in Model.Pepole)
-    {   
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">@p.FirstName @p.LastName  @p.Email</h5>
+<h1>Pepole</h1>
+@foreach (var person in Model.Pepole)
+{
+    <div>
+        <a asp-page="/sessions" asp-route-id="@person.Id">
+            <div>
+                <h3>@(person.FirstName + " " + person.LastName)</h3>
+                <h4>@person.Email</h4>
             </div>
-        </div>
-    }
-</div>
+        </a>
+    </div>
+}

@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ITHS_DB_Lab4_ClassLib.DataAccessService;
+using ITHS_DB_Lab4_ClassLib.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace ITHS_DB_Lab4_Web
 {
@@ -25,7 +26,8 @@ namespace ITHS_DB_Lab4_Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddTransient<DAService_Person>();
+            services.AddDbContext<ExersiceContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("ExerciseContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,4 +57,6 @@ namespace ITHS_DB_Lab4_Web
             });
         }
     }
+
+
 }

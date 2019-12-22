@@ -1,19 +1,14 @@
 ﻿using System.Collections.Generic;
 
-namespace ITHS_DB_Lab4_DbModel
+namespace ITHS_DB_Lab4_DbModel.Models
 {
-    public abstract class Session
+    public class Session
     {
-        protected Session(string name, string description, float time, int personId)
-        {
-            Name = name;
-            Description = description;
-            Time = time;
-            PersonId = personId;
-
-            SessionExercise = new List<SessionExercise>();
-            SessionGear = new List<SessionGear>();
-        }
+        //protected Session()
+        //{
+        //    SessionExercise = new List<SessionExercise>();
+        //    SessionGear = new List<SessionGear>();
+        //}
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -23,8 +18,8 @@ namespace ITHS_DB_Lab4_DbModel
         public int PersonId { get; set; }
         public Person Person { get; set; }
 
-        public abstract List<SessionExercise> SessionExercise { get; set; }
-        public abstract List<SessionGear> SessionGear { get; set; }
+        public virtual List<SessionExercise> SessionExercise { get; set; }
+        public virtual List<SessionGear> SessionGear { get; set; }
 
         public override string ToString()
         {

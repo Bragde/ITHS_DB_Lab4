@@ -1,4 +1,4 @@
-﻿using ITHS_DB_Lab4_ClassLib.DataAccessService;
+﻿using ITHS_DB_Lab4_ClassLib.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -15,10 +15,10 @@ namespace ITHS_DB_Lab4_DbModel
                 Console.WriteLine("SAMTLIGA PERSONER OCH DERAS TRÄNINGSPASS\n");
 
                 var persons = db.Person
-                    .OrderBy(p => p.FirstName)
-                    .ThenBy(p => p.LastName)
-                    .Include(p => p.Sessions)
-                    .ToList();
+                              .OrderBy(p => p.FirstName)
+                              .ThenBy(p => p.LastName)
+                              .Include(p => p.Sessions)
+                              .ToList();
 
                 foreach (var p in persons)
                 {
@@ -37,9 +37,10 @@ namespace ITHS_DB_Lab4_DbModel
                 Console.WriteLine("ALL UTRUSTNING SOM INTE ANVÄNDS\n");
 
                 var gear = db.Gear
-                    .Include(g => g.SessionGear)
-                    .Where(g => !g.SessionGear.Exists(sg => sg.GearId == g.Id))
-                    .ToList();
+                           .Include(g => g.SessionGear)
+                           .Where(g => !g.SessionGear
+                           .Exists(sg => sg.GearId == g.Id))
+                           .ToList();
 
                 foreach (var g in gear) Console.WriteLine($@"{g.Name}");
                 Console.WriteLine();
@@ -50,10 +51,7 @@ namespace ITHS_DB_Lab4_DbModel
                 Console.WriteLine("HUR MÅNGA GÅNGER VARJE UTRUSTNING HAR ANVÄNDS\n");
 
                 var query = db.Gear
-                    .GroupJoin(db.SessionGear,
-                        g => g.Id,
-                        sg => sg.GearId,
-                        (g, gCol) =>
+                            .GroupJoin(db.SessionGear, g => g.Id, sg => sg.GearId, (g, gCol) =>
                             new
                             {
                                 Name = g.Name,

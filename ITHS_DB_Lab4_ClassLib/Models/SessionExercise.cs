@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ITHS_DB_Lab4_DbModel
+namespace ITHS_DB_Lab4_DbModel.Models
 {
     public class SessionExercise
     {

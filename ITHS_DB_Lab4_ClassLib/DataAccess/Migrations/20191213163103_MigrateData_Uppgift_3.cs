@@ -1,4 +1,4 @@
-﻿using ITHS_DB_Lab4_ClassLib.DataAccessService;
+﻿using ITHS_DB_Lab4_ClassLib.DataAccess;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ITHS_DB_Lab4_DbModel.Migrations
