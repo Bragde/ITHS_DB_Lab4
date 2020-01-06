@@ -23,6 +23,9 @@ namespace ITHS_DB_Lab4_ClassLib.DataAccess
         public DbSet<SessionExercise> SessionExercise { get; set; }
         public DbSet<SessionGear> SessionGear { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+            => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ITHS_DB_Lab4;Trusted_Connection=True;");
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ExerciseConfiguration());
